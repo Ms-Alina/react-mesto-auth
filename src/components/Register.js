@@ -28,7 +28,6 @@ function Register({ onRegister }) {
         <form 
           className="entry__form"
           name="entry__form-register" 
-          noValidate
           onSubmit={handleSubmit}
         >
           <input

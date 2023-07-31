@@ -30,7 +30,6 @@ function Login({ onLogin }) {
         <form 
           className="entry__form" 
           name="entry-form-login "
-          noValidate
           onSubmit={handleSubmit}
         >
           <input

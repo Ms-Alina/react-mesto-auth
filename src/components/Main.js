@@ -41,9 +41,9 @@ function Main(props) {
       </section>
 
       <section className="elements">
-        {props.cards.map((card, id) => (
+        {props.cards.map((card, _id) => (
             <Card
-              key={id}
+              key={_id}
               card={card}
               link={card.link}
               name={card.name}

@@ -50,13 +50,16 @@ function App() {
       .then(([user, cards]) => {
         setCurrentUser(user);
         setCards(cards);
-      }).catch((err) => {
+      })
+      .catch((err) => {
         console.error(err);
       });
     }, []);
 
+  const isOpen = isAddPlacePopupOpen || isEditAvatarPopupOpen || isEditProfilePopupOpen || isProfilePopupOpened || selectedCard || isInfoTooltip;
+
   useEffect(() => {
-    if (isAddPlacePopupOpen || isEditAvatarPopupOpen || isEditProfilePopupOpen || isProfilePopupOpened || selectedCard || isInfoTooltip) {
+    if (isOpen) {
       function handleEsc(evt) {
         if (evt.key === 'Escape') {
           closeAllPopups();
@@ -67,7 +70,7 @@ function App() {
         document.removeEventListener('keydown', handleEsc);
       }
     }
-  }, [isAddPlacePopupOpen, isEditAvatarPopupOpen, isEditProfilePopupOpen, isProfilePopupOpened, selectedCard, isInfoTooltip]);
+  }, [isOpen]);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -80,6 +83,9 @@ function App() {
             history.push('/');
           }
         })
+        .catch((err) => {
+          console.error(err);
+        });
     }
   }, [history]);
 
@@ -135,14 +141,16 @@ function App() {
       api.likedCard(card._id)
         .then(newCard => {
           setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-        }).catch((err) => {
+        })
+        .catch((err) => {
           console.error(err);
         });
     } else {
       api.dislikedCard(card._id)
         .then((newCard) => {
           setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-        }).catch((err) => {
+        })
+        .catch((err) => {
           console.error(err);
         });
       }
